@@ -6,19 +6,24 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxFileDropModule } from 'ngx-file-drop';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
-import { AppComponent } from './app.component';
+import { HomeComponent } from './home.component';
 import { ScheduleAPIService } from './schedule-api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
+
 
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
-import { HomeComponent } from './home/home.component';
-import { HomeModule } from './home/home.module';
+import { HomeRoutingModule } from './home-routing.module';
+
+
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [HomeComponent],
   imports: [
+    CommonModule,
+    HomeRoutingModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -27,12 +32,13 @@ import { HomeModule } from './home/home.module';
     BrowserAnimationsModule,
     FlexLayoutModule,
 
-    HomeModule,
     MatTabsModule,
     MatListModule,
     MatTableModule,
+
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers:[],
+  bootstrap: [HomeComponent],
+  exports:[HomeComponent],
 })
-export class AppModule {}
+export class HomeModule { }

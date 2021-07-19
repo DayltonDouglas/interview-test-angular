@@ -8,12 +8,12 @@ import {
 } from 'ngx-file-drop';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.scss']
 })
-export class AppComponent implements OnInit {
-  public files: NgxFileDropEntry[] = [];
+export class HomeComponent implements OnInit {
+  public  files: NgxFileDropEntry[] = [];
   public channels: any = [];
   public schedules: any = [];
   public schedulePeriod = null;
@@ -28,9 +28,10 @@ export class AppComponent implements OnInit {
       date: [new Date()],
       type: null,
     });
-  }
 
-  public ngOnInit()  {
+   }
+
+  public ngOnInit() {
     this.form.patchValue({ type: 'feed' });
     this.http.get('api/channels').subscribe((channels) => {
       this.selectedChannel = channels[0];
@@ -46,12 +47,11 @@ export class AppComponent implements OnInit {
       this.schedules = scheduleResponse.data;
     });
   }
-
+  
   public selectChannel(channel) {
     this.selectedChannel = channel;
     this.form.patchValue({ channel });
   }
-
   public schedule() {
     if (!this.form.valid) return; // TODO: give feedback
     this.http
@@ -68,7 +68,6 @@ export class AppComponent implements OnInit {
         });
       });
   }
-
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
     for (const droppedFile of files) {
@@ -95,4 +94,5 @@ export class AppComponent implements OnInit {
   public changeTab($event) {
     this.form.patchValue({ type: $event.index === 0 ? 'feed' : 'story' });
   }
+
 }
