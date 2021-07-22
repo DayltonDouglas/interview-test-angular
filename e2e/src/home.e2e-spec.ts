@@ -1,10 +1,24 @@
-import { browser, element, by , protractor} from 'protractor'
+
+import { browser, element, by , protractor, logging} from 'protractor'
+import { HomePage } from './home.po';
 
 describe('Home Page', ()=>{
 
+    let homePage: HomePage;
+
+
+    afterEach(async()=>{
+        const logs = await browser.manage().logs().get(logging.Type.BROWSER);
+        expect(logs).not.toContain(jasmine.objectContaining({
+            level: logging.Level.SEVERE
+        } as logging.Entry));
+    })
+    beforeEach(async()=>{
+        homePage = new HomePage;
+        await homePage.navigateTo();
+    })
     it('Should navigate to user profile', async()=>{
-        await browser.get(`${browser.baseUrl}/#/user`);
-        const title = await browser.getTitle();
+        const title = await homePage.getWindowTitle();
         expect(title).toEqual('Timeline');
     })
     it('Should display a list of photos', async()=>{
